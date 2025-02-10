@@ -1,6 +1,6 @@
 import time
 import board
-import gpiozero
+# import gpiozero
 import RPi.GPIO as GPIO
 
 from PIL import Image, ImageDraw, ImageFont
