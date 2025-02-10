@@ -7,7 +7,6 @@ import json
 
 import motor, microphone, display, ultrasonic
 
-
 CURR = 0
 URL = "localhost:8080/ocitanja"
 # URL = "http://192.168.0.52:8080/ocitanja"
@@ -29,7 +28,7 @@ def status_led(led):
 	while True:
 		GPIO.output(led, active := not(active))
 		time.sleep(0.5)
-  
+
 def close_led(us_1, us_2):
 	if us_1 < 15 or us_2 < 15:
 		GPIO.output(leds, GPIO.HIGH)
@@ -41,10 +40,10 @@ def send_data(data):
 	try:
 		response = requests.post(URL, data=json.dumps(data), timeout=0.5)
 		if response.status_code == 201:
-			print(f"Uspješno poslan zahtjev: {response.json()}")
+			# print(f"Uspješno poslan zahtjev: {response.json()}")
 			return True
 	except requests.exceptions.RequestException as e:
-		print(f"Greška: {e}\nStatus: {response.status_code}")
+		# print(f"Greška: {e}\nStatus: {response.status_code}")
 		return False
 
 def rakija(number):
@@ -63,7 +62,7 @@ def main():
 			mic = microphone.lisen()
    
 			info = [f"Object close: {close}", f"Microphone: {mic}" ,f"US1: {us_1} cm", f"US2: {us_2} cm"]
-			print(info)
+			print(*info)
 			display.display_image(info)
 
 			json_data = {
@@ -88,7 +87,7 @@ def main():
 			mic = microphone.lisen()
    
 			info = [f"Object close: {close}", f"Microphone: {mic}" ,f"US1: {us_1} cm", f"US2: {us_2} cm"]
-			print(info)
+			print(*info)
 			display.display_image(info)
    
 			json_data = {
@@ -111,21 +110,19 @@ def setup():
 	thread_status = threading.Thread(target=status_led, args=(21,))
 	# thread_mic = threading.Thread(target=microphone.lisen)
 
-	# Pokretanje niti
 	thread_main.start()
 	thread_status.start()
 	# thread_mic.start()
 
-	# Main thread čeka dok se druge niti ne završe
 	thread_main.join()
 	thread_status.join()
 	# thread_mic.join()
-
 
 if __name__ == "__main__":
 	try:
 		setup()
 	finally:
+		print("Cleaning up")
 		if CURR > 0:
 			for i in range(CURR):
 				motor.left()

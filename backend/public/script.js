@@ -83,7 +83,16 @@ async function fetchAndUpdateCharts() {
 
 	 // Update raw data notifications
 	 const notificationText = document.getElementById('notification-text');
-	 notificationText.innerHTML = JSON.stringify(data[0], null, 2);
+const latestData = data[0];
+    const formattedText = `
+        ID: ${latestData.id}
+        Datum: ${latestData.datum}
+        Ultrasonic Sensor 1: ${latestData.us_1} cm
+        Ultrasonic Sensor 2: ${latestData.us_2} cm
+        Red Light: ${latestData.red ? 'On' : 'Off'}
+        Buzzer: ${latestData.buzzer ? 'On' : 'Off'}
+    `;
+	 notificationText.innerHTML = formattedText;
 }
 
 /////////////////////////////// CREATE CHARTS ///////////////////////////////
