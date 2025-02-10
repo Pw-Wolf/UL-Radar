@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="public/icon.png" type="image/x-icon">
+	<title>Radar</title>
+    <!-- Add any required CSS or JS libraries here -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<link rel="stylesheet" href="public/style.css">
+</head>
+<body>
+	
+	<div class="row">
+		<!-- Graph for red light status -->
+        <div id="red-light-graph" class="container">
+			<h2>Red Light Status</h2>
+            <canvas id="redLightChart"></canvas>
+        </div>
+
+		<!-- Graph for sound status -->
+        <div id="sound-graph" class="container">
+			<h2>Sound Status</h2>
+            <canvas id="soundChart"></canvas>
+        </div>
+		
+    </div>
+	
+    <div class="row">
+		<!-- Graph for ultrasonic sensor 1 -->
+		<div id="ultrasonic-sensor1-graph" class="container">
+			<h2>Ultrasonic Sensor 1 Data</h2>
+			<canvas id="ultrasonicChart1"></canvas>
+		</div>
+		<!-- Graph for ultrasonic sensor 2 -->
+        <div id="ultrasonic-sensor2-graph" class="container">
+			<h2>Ultrasonic Sensor 2 Data</h2>
+            <canvas id="ultrasonicChart2"></canvas>
+        </div>
+    </div>
+
+	<!-- Notification section -->
+	<div id="notification" class="container">
+		<h2>Raw Data Notifications</h2>
+		<!-- <p id="notification-text">No new data.</p> -->
+		<pre><code id="notification-text">No new data.</code></pre>
+		<!-- <pre><code id="notification-text">{ "id": 228, "datum": "2025-02-10 19:27:50", "us_1": 70.61, "us_2": 60.49, "red": 0, "buzzer": 0 }</code></pre> -->
+	</div>
+</body>
+<!-- <script src="public/create_charts.js"></script> -->
+<script src="public/script.js"></script>
+</html>

@@ -1,0 +1,8 @@
+{
+	"name": "test_app",
+	"version": "1.0.0",
+	"type":"commonjs",
+	"scripts": {
+	  "start": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/routes.js"   
+	}
+  }
