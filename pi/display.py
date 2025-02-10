@@ -1,12 +1,17 @@
 import time
 import board
 import gpiozero
+import RPi.GPIO as GPIO
 
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 
 # Use gpiozero to control the reset pin
-oled_reset_pin = gpiozero.OutputDevice(4, active_high=False)  # GPIO 4 for reset, active low
+# oled_reset_pin = gpiozero.OutputDevice(4, active_high=False)  # GPIO 4 for reset, active low
+
+RESET_PIN = 4
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(RESET_PIN, GPIO.OUT)
 
 global draw, oled
 
@@ -22,11 +27,20 @@ LOOPTIME = 1.0
 i2c = board.I2C()
 
 # Manually reset the display (high -> low -> high for reset pulse)
-oled_reset_pin.on()
-time.sleep(0.1)  # Delay for a brief moment
-oled_reset_pin.off()  # Toggle reset pin low
-time.sleep(0.1)  # Wait for reset
-oled_reset_pin.on()  # Turn reset pin back high
+
+def reset_oled():
+    GPIO.output(RESET_PIN, GPIO.LOW) 
+    time.sleep(0.1)  # Čekanje 100ms
+    GPIO.output(RESET_PIN, GPIO.HIGH)  
+
+reset_oled()
+reset_oled()
+reset_oled()
+# oled_reset_pin.on()
+# time.sleep(0.1)  # Delay for a brief moment
+# oled_reset_pin.off()  # Toggle reset pin low
+# time.sleep(0.1)  # Wait for reset
+# oled_reset_pin.on()  # Turn reset pin back high
 
 # Create the OLED display object
 oled = adafruit_ssd1306.SSD1306_I2C(WIDTH, HEIGHT, i2c, addr=0x3C)
